@@ -1,6 +1,6 @@
 from pydantic import BaseModel, ConfigDict
 
-from backend.src.schemas.application import ApplicationRead
+from src.schemas.application import ApplicationRead
 
 
 class DriverBase(BaseModel):

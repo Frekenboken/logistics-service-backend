@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
-from backend.src.db import get_session
-from backend.src.crud import application as application_crud
-from backend.src.schemas.application import ApplicationCreate, ApplicationRead, ApplicationUpdate
+from src.db import get_session
+from src.crud import application as application_crud
+from src.schemas.application import ApplicationCreate, ApplicationRead, ApplicationUpdate
 
 router = APIRouter(prefix="/applications", tags=["applications"])
 

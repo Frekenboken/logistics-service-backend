@@ -1,2 +1,2 @@
-import backend.src.crud.application
-import backend.src.crud.driver
+import src.crud.application
+import src.crud.driver

@@ -2,8 +2,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from sqlalchemy.orm import selectinload
 
-from backend.src.models import Application, Driver
-from backend.src.schemas.application import ApplicationCreate, ApplicationRead, ApplicationUpdate
+from src.models import Application, Driver
+from src.schemas.application import ApplicationCreate, ApplicationRead, ApplicationUpdate
 
 
 async def create_application(session: AsyncSession, application_in: ApplicationCreate) -> Application | None:

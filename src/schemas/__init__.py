@@ -1,2 +1,2 @@
-import backend.src.schemas.application
-import backend.src.schemas.driver
+import src.schemas.application
+import src.schemas.driver

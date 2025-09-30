@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
-from backend.src.db import get_session
-from backend.src.crud import driver as driver_crud
-from backend.src.schemas.driver import DriverCreate, DriverRead, DriverReadWithApplications
+from src.db import get_session
+from src.crud import driver as driver_crud
+from src.schemas.driver import DriverCreate, DriverRead, DriverReadWithApplications
 
 router = APIRouter(prefix="/drivers", tags=["drivers"])
 

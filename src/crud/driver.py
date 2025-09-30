@@ -2,8 +2,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from sqlalchemy.orm import selectinload
 
-from backend.src.models import Application, Driver
-from backend.src.schemas.driver import DriverCreate, DriverRead, DriverUpdate
+from src.models import Application, Driver
+from src.schemas.driver import DriverCreate, DriverRead, DriverUpdate
 
 
 async def create_driver(session: AsyncSession, driver_in: DriverCreate) -> Driver:
