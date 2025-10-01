@@ -4,8 +4,7 @@ from src.schemas.application import ApplicationRead
 
 
 class DriverBase(BaseModel):
-    name: str
-    email: str
+    user_id: int
 
 
 class DriverCreate(DriverBase):
@@ -15,15 +14,12 @@ class DriverCreate(DriverBase):
 class DriverRead(DriverBase):
     model_config = ConfigDict(from_attributes=True)
 
-    id: int
 
 class DriverReadWithApplications(DriverBase):
     model_config = ConfigDict(from_attributes=True)
 
-    id: int
     applications: list[ApplicationRead]
 
 
 class DriverUpdate(DriverBase):
     name: str | None = None
-    email: str | None = None

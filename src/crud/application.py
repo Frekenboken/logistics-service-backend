@@ -9,13 +9,13 @@ from src.schemas.application import ApplicationCreate, ApplicationRead, Applicat
 async def create_application(session: AsyncSession, application_in: ApplicationCreate) -> Application | None:
     result = await session.execute(
         select(Driver)
-        .where(Driver.id == application_in.driver_id)
+        .where(Driver.user_id == application_in.driver_id)
         .options(selectinload(Driver.applications))
     )
     driver = result.scalar_one_or_none()
 
     if driver:
-        new_application = Application(name=application_in.name, description=application_in.description, driver_id=application_in.driver_id)
+        new_application = Application(**application_in.model_dump())
         driver.applications.append(new_application)
         await session.commit()
         return new_application

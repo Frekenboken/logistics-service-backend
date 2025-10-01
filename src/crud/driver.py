@@ -7,7 +7,7 @@ from src.schemas.driver import DriverCreate, DriverRead, DriverUpdate
 
 
 async def create_driver(session: AsyncSession, driver_in: DriverCreate) -> Driver:
-    driver = Driver(name=driver_in.name, email=driver_in.email)
+    driver = Driver(**driver_in.model_dump())
     session.add(driver)
     await session.commit()
     await session.refresh(driver)
@@ -16,7 +16,7 @@ async def create_driver(session: AsyncSession, driver_in: DriverCreate) -> Drive
 async def get_driver_with_applications(session: AsyncSession, driver_id: int):
     result = await session.execute(
         select(Driver)
-        .where(Driver.id == driver_id)
+        .where(Driver.user_id == driver_id)
         .options(selectinload(Driver.applications))
     )
     driver = result.scalar_one_or_none()
