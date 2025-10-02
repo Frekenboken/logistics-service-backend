@@ -9,9 +9,9 @@ from src.auth.security import security
 router = APIRouter(prefix="/users", tags=["users"])
 
 
-@router.post("/", response_model=UserRead)
-async def create_user(user: UserCreate, session: AsyncSession = Depends(get_session)):
-    return await user_crud.create_user(session, user)
+# @router.post("/", response_model=UserRead)
+# async def create_user(user: UserCreate, session: AsyncSession = Depends(get_session)):
+#     return await user_crud.create_user(session, user)
 
 
 @router.get("/{user_id}", response_model=UserRead)

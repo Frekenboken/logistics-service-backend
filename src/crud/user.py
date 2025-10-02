@@ -9,14 +9,14 @@ from src.auth.hashing import get_password_hash
 
 
 async def create_user(session: AsyncSession, user_in: UserCreate) -> User | None:
-    driver = User(email=user_in.email,
+    user = User(email=user_in.email,
                   firstname=user_in.firstname,
                   lastname=user_in.lastname,
                   hashed_password=get_password_hash(user_in.password))
-    session.add(driver)
+    session.add(user)
     await session.commit()
-    await session.refresh(driver)
-    return driver
+    await session.refresh(user)
+    return user
 
 
 async def get_user(session: AsyncSession, user_id: int) -> User | None:
