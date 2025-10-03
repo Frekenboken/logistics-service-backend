@@ -41,7 +41,10 @@ async def login(
         access_token=access_token,
         token_type="bearer",
         user=UserResponse(
-            email=user.email
+            email=user.email,
+            firstname=user.firstname,
+            lastname=user.lastname,
+            role=user.role
         ),
         expires_in=settings.ACCESS_TOKEN_EXPIRE_MINUTES
     )
@@ -53,7 +56,6 @@ async def register(
         response: Response,
         session: AsyncSession = Depends(get_session)
 ):
-    print(form.email)
     user_exist = await user_crud.get_user_by_email(session, form.email)
     if user_exist:
         raise HTTPException(401, "Username or email already registered"
@@ -66,7 +68,10 @@ async def register(
         access_token=access_token,
         token_type="bearer",
         user=UserResponse(
-            email=new_user.email
+            email=new_user.email,
+            firstname=new_user.firstname,
+            lastname=new_user.lastname,
+            role=new_user.role
         ),
         expires_in=settings.ACCESS_TOKEN_EXPIRE_MINUTES
     )
@@ -83,7 +88,12 @@ async def get_current_user_profile(payload: TokenPayload = Depends(security.acce
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
 
-    return UserResponse(email=user.email)
+    return UserResponse(
+        email=user.email,
+        firstname=user.firstname,
+        lastname=user.lastname,
+        role=user.role
+    )
 
 
 @router.post("/logout")

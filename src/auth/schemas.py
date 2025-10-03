@@ -3,10 +3,13 @@ from pydantic import BaseModel
 
 class UserResponse(BaseModel):
     email: str
+    firstname: str
+    lastname: str
+    role: str
 
 
 class LoginRequest(BaseModel):
-    username: str
+    email: str
     password: str
 
 

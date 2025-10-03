@@ -2,8 +2,11 @@ from pydantic import BaseModel, ConfigDict
 
 
 class ApplicationBase(BaseModel):
-    name: str
-    description: str | None = None
+    from_: str
+    to: str
+    weight: float
+    volume: float
+    description: str
     driver_id: int
 
 
@@ -18,6 +21,9 @@ class ApplicationRead(ApplicationBase):
 
 
 class ApplicationUpdate(ApplicationBase):
-    name: str | None = None
+    from_: str | None = None
+    to: str | None = None
+    weight: float | None = None
+    volume: float | None = None
     description: str | None = None
     driver_id: int | None = None

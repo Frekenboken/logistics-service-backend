@@ -21,8 +21,8 @@ async def read_user(user_id: int, session: AsyncSession = Depends(get_session)):
         raise HTTPException(404, "Not found")
     return db_user
 
-
-@router.get("/", response_model=list[UserRead], dependencies=[Depends(security.access_token_required)])
+# , dependencies=[Depends(security.access_token_required)]
+@router.get("/", response_model=list[UserRead])
 async def read_users(session: AsyncSession = Depends(get_session)):
     db_users = await user_crud.get_users(session)
     if db_users is None:

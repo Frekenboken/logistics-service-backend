@@ -9,7 +9,10 @@ router = APIRouter(prefix="/applications", tags=["applications"])
 
 @router.post("/", response_model=ApplicationRead)
 async def create_application(application: ApplicationCreate, session: AsyncSession = Depends(get_session)):
-    return await application_crud.create_application(session, application)
+    application = await application_crud.create_application(session, application)
+    if not application:
+        raise HTTPException(status_code=404, detail="User not found")
+    return application
 
 
 @router.get("/{application_id}", response_model=ApplicationRead)
