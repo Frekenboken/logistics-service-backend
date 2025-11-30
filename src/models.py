@@ -1,6 +1,8 @@
-from sqlalchemy import Column, Integer, Float, String, ForeignKey, Boolean, Enum as SQLEnum
+from sqlalchemy import Column, Integer, Float, String, ForeignKey, Boolean, Enum as SQLEnum, Text, DateTime
 from sqlalchemy.orm import DeclarativeBase, relationship
 from sqlalchemy.ext.asyncio import AsyncAttrs
+
+from datetime import datetime, UTC
 
 from enum import Enum
 
@@ -10,6 +12,13 @@ class UserRole(str, Enum):
     DRIVER = "driver"
     MANAGER = "manager"
     USER = "user"
+
+class ApplicationStatus(str, Enum):
+    NEW = "new"
+    CONFIRMED = "confirmed"
+    PROGRESS = "progress"
+    COMPLETED = "completed"
+
 
 
 class Base(AsyncAttrs, DeclarativeBase):
@@ -36,7 +45,25 @@ class Application(Base):
     to = Column(String, nullable=False)
     weight = Column(Float, nullable=False)
     volume = Column(Float, nullable=False)
-    description = Column(String)
+    cargo_content = Column(Text, nullable=False)
+    notes = Column(Text, default='Замечаний нет.')
+    declared_value = Column(Float, nullable=False)
+    status = Column(SQLEnum(ApplicationStatus), default=ApplicationStatus.NEW)
+
+    # Контактная информация
+    sender_name = Column(String, nullable=False)
+    sender_phone = Column(String, nullable=False)
+    recipient_name = Column(String, nullable=False)
+    recipient_phone = Column(String, nullable=False)
+
+    # Временные поля
+    created_at = Column(DateTime, default=datetime.now(UTC), nullable=False)
+    updated_at = Column(DateTime, default=datetime.now(UTC), onupdate=datetime.now(UTC), nullable=False)
+
+    departure_time = Column(DateTime, nullable=True)
+    estimated_delivery_time = Column(DateTime, nullable=True)
+    actual_delivery_time = Column(DateTime, nullable=True)
+
     driver_id = Column(Integer, ForeignKey("drivers.user_id"))
 
     # Обратная ссылка
